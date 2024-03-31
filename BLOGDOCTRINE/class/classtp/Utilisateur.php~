@@ -1,0 +1,12 @@
+<?php 
+
+/** @Entity **/
+class Utilisateur {
+    /** @Id @Column(type="integer") @GeneratedValue **/
+    private $id;
+    /** @Column(type="text") **/
+    private $login;
+    /**  @Column(type="text") **/
+    private $passwd;
+
+}
