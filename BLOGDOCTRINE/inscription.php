@@ -6,8 +6,9 @@ include ('header.php');
 
     <h1>Inscription</h1>
 
-    <?php if (isset($error_message)): ?>
-        <p style="color: red;"><?php echo $error_message; ?></p>
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <p style="color: red;"><?php echo $_SESSION['error_message']; ?></p>
+        <?php unset($_SESSION['error_message']);?>
     <?php endif; ?>
 
     <form method="POST" action="traite_inscription.php">

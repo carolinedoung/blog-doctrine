@@ -11,17 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Vérifiez si le premier mot de passe est le même que le deuxième
     if ($password !== $password_confirm) {
-        echo "Les mots de passe ne correspondent pas.";
+        $_SESSION['error_message'] = 'Les mots de passe ne correspondent pas.';
+        header('Location: inscription.php');
         exit;
     }
-
 
     // Vérifiez si un utilisateur avec le même pseudo ou email existe déjà
     $existingUser = $entityManager->getRepository('Utilisateur')->findOneBy(array('login' => $login, 'pseudo' => $pseudo));
 
     if ($existingUser) {
-        // Si un utilisateur avec le même pseudo ou email existe déjà, affichez un message d'erreur et arrêtez l'exécution du script
-        echo "Un utilisateur avec le même pseudo ou email existe déjà.";
+        $_SESSION['error_message'] = 'Un utilisateur avec le même pseudo ou email existe déjà.';
+        header('Location: inscription.php');
         exit;
     }
 
@@ -35,6 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Utilisez Doctrine pour insérer le nouvel utilisateur dans la base de données
     $entityManager->persist($user);
     $entityManager->flush();
+
+    // Supprimez le message d'erreur de la session
+    unset($_SESSION['error_message']);
 
     // redirection vers la page de connexion
     header('Location: login.php');
