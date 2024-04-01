@@ -2,7 +2,7 @@
 include ('header.php');
 ?>
 
-
+<body>
 <section id="login">
 
     <h1>Connexion</h1>
@@ -20,3 +20,5 @@ include ('header.php');
     </form>
 
 </section>
+</body>
+

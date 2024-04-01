@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifiez si un utilisateur avec le même login existe
     $user = $entityManager->getRepository('Utilisateur')->findOneBy(array('login' => $login));
 
-    if ($user && $user->getPasswd() == $password) {
+    if ($user && password_verify($password, $user->getPasswd())) {
         // Si l'utilisateur existe et que le mot de passe est correct, démarrez une session pour l'utilisateur
         $_SESSION['user'] = array(
             'login' => $user->getLogin(),
@@ -18,8 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'role' => $user->getAdmin() ? 'admin' : 'user'
         );
 
-        // Redirigez l'utilisateur vers la page d'accueil ou le tableau de bord de l'administrateur
-        header('Location: ' . ($user->getAdmin() ? 'admin.php' : 'index.php'));
+        // // Redirigez l'utilisateur vers la page d'accueil ou le tableau de bord de l'administrateur
+        // header('Location: ' . ($user->getAdmin() ? 'admin.php' : 'index.php'));
+        // Redirigez tous les utilisateurs vers la page d'accueil
+        header('Location: index.php');
         exit;
     } else {
         // Si les informations d'identification sont incorrectes, affichez un message d'erreur
