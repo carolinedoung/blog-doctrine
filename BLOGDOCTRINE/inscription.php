@@ -2,6 +2,7 @@
 include ('header.php');
 ?>
 
+<body>
 <section id="inscription">
 
     <h1>Inscription</h1>
@@ -24,3 +25,4 @@ include ('header.php');
     </form>
 
 </section>
+</body>
