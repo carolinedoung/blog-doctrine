@@ -12,14 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($password, $user->getPasswd())) {
         // Si l'utilisateur existe et que le mot de passe est correct, démarrez une session pour l'utilisateur
-        $_SESSION['user'] = array(
-            'login' => $user->getLogin(),
-            'pseudo' => $user->getPseudo(),
-            'role' => $user->getAdmin() ? 'admin' : 'user'
-        );
+        $_SESSION['login'] = $user->getLogin();
+        $_SESSION['pseudo'] = $user->getPseudo();
+        $_SESSION['role'] = $user->getAdmin() ? 'admin' : 'user';
 
-        // // Redirigez l'utilisateur vers la page d'accueil ou le tableau de bord de l'administrateur
-        // header('Location: ' . ($user->getAdmin() ? 'admin.php' : 'index.php'));
         // Redirigez tous les utilisateurs vers la page d'accueil
         header('Location: index.php');
         exit;
@@ -31,4 +27,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
