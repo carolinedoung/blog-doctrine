@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $existingUser = $entityManager->getRepository('Utilisateur')->findOneBy(array('pseudo' => $pseudo));
 
     if ($existingUser) {
-        // Si un utilisateur avec le même pseudo existe déjà, affichez un message d'erreur et arrêtez l'exécution du script
+        // Si un utilisateur avec le même pseudo existe déjà, affiche un message d'erreur et arrêtez l'exécution du script
         $_SESSION['error_message'] = "Un utilisateur avec le même pseudo existe déjà.";
         header('Location: inscription.php');
         exit;

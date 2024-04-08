@@ -26,7 +26,7 @@ session_start();
                 echo '<li><a href="admin.php">Panel Admin</a></li>';
             }
             ?>
-            <li><a href="inscription.php">Inscription</a></li> <!-- Toujours afficher le lien Inscription -->
+            <li><a href="inscription.php">Inscription</a></li> 
             <?php
             if (isset($_SESSION['login'])) {
                 echo '<li><a href="logout.php">Déconnexion</a></li>';

@@ -10,6 +10,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifiez si un utilisateur avec le même login existe
     $user = $entityManager->getRepository('Utilisateur')->findOneBy(array('login' => $login));
 
+    // // Code de débogage pour vérifier la valeur renvoyée par getAdmin()
+    // if ($user) {
+    //     echo 'Valeur de getAdmin() pour l\'utilisateur ' . $user->getLogin() . ' : ' . $user->getAdmin();
+    //     exit;
+    // }
+
     if ($user && password_verify($password, $user->getPasswd())) {
         // Si l'utilisateur existe et que le mot de passe est correct, démarrez une session pour l'utilisateur
         $_SESSION['login'] = $user->getLogin();

@@ -1,8 +1,7 @@
 <?php 
 include ('header.php');
-
-if ($_SESSION['admin'] == 1) {
-    
+var_dump($_SESSION);
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {    
 } else {
     header('Location: index.php');
     exit;
@@ -10,7 +9,7 @@ if ($_SESSION['admin'] == 1) {
 
 ?>
 
-<form method="post" action="traite_billet.php">
+<form method="POST" action="traite_billet.php">
     <label for="titre">Titre:</label>
     <input type="text" id="titre" name="titre">
     <label for="contenu">Contenu:</label>

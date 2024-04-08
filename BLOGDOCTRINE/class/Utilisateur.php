@@ -5,11 +5,11 @@ class Utilisateur
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
     public $id;
-    /** @Login @Column(type="text", length=3000) **/
+    /** @Login @Column(type="string", length=3000) **/
     public $login;
-    /**  @Passwd @Column(type="text", length=3000) **/
+    /**  @Passwd @Column(type="string", length=300) **/
     public $passwd;
-    /** @Pseudo @Column(type="text", length=3000) **/
+    /** @Pseudo @Column(type="string", length=300) **/
     public $pseudo;
     /** @Admin @Column(type="integer") **/
     public $admin;
