@@ -13,7 +13,7 @@ class Billet
     public $datetime;
     /**
      * @ManyToOne(targetEntity="Utilisateur")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @JoinColumn(name="utilisateur_id", referencedColumnName="id")
      */
     public $utilisateur;
 

@@ -1,32 +1,42 @@
 <?php 
 include ('header.php');
 
-// Vérifier si l'utilisateur est connecté et est l'administrateur
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin' || !isset($_SESSION['id'])) {
-    // Si l'utilisateur n'est pas l'administrateur, rediriger vers la page d'accueil
+// Vérifiez si l'utilisateur est un administrateur
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     header('Location: index.php');
     exit;
 }
 
-// Vérifier si le formulaire a été soumis
+// Vérification si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Créer un nouveau billet
+    // Récupération des données du formulaire
+    $titre = $_POST['titre'];
+    $contenu = $_POST['contenu'];
 
-    echo "Avant la création du billet<br>";
+    // // Récupération de l'utilisateur 'admin'
+    $utilisateur = $entityManager->getRepository('Utilisateur')->findOneBy(array('admin' => 1));
+    var_dump($utilisateur);
+    
+    if ($utilisateur === null) {
+        echo "L'utilisateur admin n'existe pas dans la base de données.";
+        exit;
+    }
+    
+    // Création d'un nouvel objet Billet
     $billet = new Billet();
-    echo "Après la création du billet<br>";
-    $billet->setTitre($_POST['titre']);
-    $billet->setContenu($_POST['contenu']);
-    $billet->setDatetime(new \DateTime());
-    $billet->setUtilisateur($entityManager->getRepository('Utilisateur')->find($_SESSION['id']));
+    $billet->setTitre($titre);
+    $billet->setContenu($contenu);
+    // $billet->setDatetime(new DateTime());
+    $billet->setUtilisateur($utilisateur);  // Définir l'utilisateur
+    $billet->setDatetime(new DateTime('now', new DateTimeZone('Europe/Paris')));
 
-    // Ajouter le billet à la base de données
+
+
+    // Enregistrement du billet dans la base de données
     $entityManager->persist($billet);
     $entityManager->flush();
 
-    // Rediriger vers la page des billets
+    // Redirection vers la page d'accueil
     header('Location: index.php');
     exit;
 }
-
-?>  

@@ -8,8 +8,31 @@ $billets = $entityManager->getRepository('Billet')->findBy(array(), array('datet
 foreach ($billets as $billet) {
     echo '<h2>' . $billet->getTitre() . '</h2>';
     echo '<p>' . $billet->getContenu() . '</p>';
-    echo '<p>Posté par ' . $billet->getUtilisateur()->getPseudo() . ' le ' . $billet->getDatetime()->format('d/m/Y H:i') . '</p>';
+    
+    $utilisateur = $billet->getUtilisateur();
+    if ($utilisateur !== null) {
+        echo '<p>Posté par ' . $utilisateur->getPseudo() . ' le ';
+    } else {
+        echo '<p>Posté par un utilisateur inconnu le ';
+    }
+    
+    $datetime = $billet->getDatetime();
+    if ($datetime) {
+        echo $datetime->format('d/m/Y H:i');
+    } else {
+        echo 'Date inconnue';
+    }
+    echo '</p>';
+
+    // Ajouter le formulaire de commentaire ici
+        echo '<form method="POST" action="traite_commentaire.php">';
+        echo '<input type="hidden" name="billet_id" value="' . $billet->getId() . '">';
+        echo '<textarea name="contenu" required></textarea>';
+        echo '<button type="submit">Ajouter un commentaire</button>';
+        echo '</form>';
+
 }
+
 
 // Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
