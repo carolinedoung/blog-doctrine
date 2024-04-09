@@ -24,19 +24,11 @@ foreach ($billets as $billet) {
     }
     echo '</p>';
 
-    // Ajouter le formulaire de commentaire ici
-        echo '<form method="POST" action="traite_commentaire.php">';
-        echo '<input type="hidden" name="billet_id" value="' . $billet->getId() . '">';
-        echo '<textarea name="contenu" required></textarea>';
-        echo '<button type="submit">Ajouter un commentaire</button>';
-        echo '</form>';
-
+    echo '<a href="billet.php?id=' . $billet->getId() . '">Lire la suite</a>';
 }
-
 
 // Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     echo '<a href="ajout_billet.php">Ajouter un billet</a>';
 }
-
 ?>

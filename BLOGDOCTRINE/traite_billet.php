@@ -30,8 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $billet->setUtilisateur($utilisateur);  // Définir l'utilisateur
     $billet->setDatetime(new DateTime('now', new DateTimeZone('Europe/Paris')));
 
-
-
     // Enregistrement du billet dans la base de données
     $entityManager->persist($billet);
     $entityManager->flush();

@@ -11,12 +11,12 @@ class Commentaire
     public $datetime;
     /**
      * @ManyToOne(targetEntity="Billet")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @JoinColumn(name="billet_id", referencedColumnName="id")
      */
     public $billet;
     /**
-     * ManyToOne(targetEntity="Utilisateur")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="Utilisateur")
+     * @JoinColumn(name="utilisateur_id", referencedColumnName="id")
      */
     public $utilisateur;
     

@@ -1,34 +1,48 @@
 <?php
 include ('header.php');
 
-// Vérifiez si l'utilisateur est connecté
-if (!isset($_SESSION['utilisateur'])) {
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id'])) {
+    // Rediriger l'utilisateur vers la page de connexion
     header('Location: login.php');
-    exit;
+    exit();
 }
 
-// Vérification si le formulaire est soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupération des données du formulaire
+    // Récupérer les valeurs du formulaire
     $billetId = $_POST['billet_id'];
     $contenu = $_POST['contenu'];
 
-    // Récupération du billet et de l'utilisateur
-    $billet = $entityManager->find('Billet', $billetId);
-    $utilisateur = $_SESSION['utilisateur'];
+    // Afficher la valeur de $_SESSION['id']
+    echo "ID de l'utilisateur dans la session : ";
+    var_dump($_SESSION['id']);
 
-    // Création d'un nouvel objet Commentaire
+    // Récupérer l'utilisateur connecté
+    echo "Avant la récupération de l'utilisateur<br>";
+    $utilisateur = $entityManager->getRepository('Utilisateur')->find($_SESSION['id']);
+    echo "Après la récupération de l'utilisateur<br>";
+    var_dump($utilisateur);
+
+    // Récupérer le billet associé
+    $billet = $entityManager->getRepository('Billet')->find($billetId);
+
+    if ($billet === null) {
+        echo "Le billet n'existe pas dans la base de données.";
+        exit;
+    }
+
+    // Créer un nouvel objet Commentaire
     $commentaire = new Commentaire();
-    $commentaire->setContenu($contenu);
-    $commentaire->setDatetime(new DateTime('now', new DateTimeZone('Europe/Paris')));
-    $commentaire->setBillet($billet);
-    $commentaire->setUtilisateur($utilisateur);
 
-    // Enregistrement du commentaire dans la base de données
+    // Remplir l'objet Commentaire avec les valeurs du formulaire
+    $commentaire->setContenu($contenu);
+    $commentaire->setBillet($entityManager->find('Billet', $billetId));
+    $commentaire->setUtilisateur($utilisateur);
+    $commentaire->setDatetime(new DateTime('now', new DateTimeZone('Europe/Paris')));
+
+    // Enregistrer l'objet Commentaire dans la base de données
     $entityManager->persist($commentaire);
     $entityManager->flush();
 
-    // Redirection vers la page du billet
-    header('Location: billet.php?id=' . $billetId);
-    exit;
-}
+// Rediriger l'utilisateur vers la page du billet
+header('Location: billet.php?id=' . $billetId);
+?>

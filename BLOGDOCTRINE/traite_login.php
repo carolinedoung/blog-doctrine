@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login'] = $user->getLogin();
         $_SESSION['pseudo'] = $user->getPseudo();
         $_SESSION['role'] = $user->getAdmin() ? 'admin' : 'user';
+        $_SESSION['id'] = $user->getId(); 
 
         // Redirigez tous les utilisateurs vers la page d'accueil
         header('Location: index.php');
