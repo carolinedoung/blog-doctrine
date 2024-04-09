@@ -4,6 +4,7 @@ include ('header.php');
 // Récupérer les 3 derniers billets de la base de données
 $billets = $entityManager->getRepository('Billet')->findBy(array(), array('datetime' => 'desc'),3);
 
+echo '<h1>Les 3 derniers billets</h1>';
 // Afficher les billets
 foreach ($billets as $billet) {
     echo '<h2>' . $billet->getTitre() . '</h2>';
@@ -25,10 +26,10 @@ foreach ($billets as $billet) {
     echo '</p>';
 
     echo '<a href="billet.php?id=' . $billet->getId() . '">Lire la suite</a>';
-}
+    }
 
-// Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-    echo '<a href="ajout_billet.php">Ajouter un billet</a>';
-}
+    // Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
+    if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+        echo '<a href="ajout_billet.php">Ajouter un billet</a>';
+    }
 ?>

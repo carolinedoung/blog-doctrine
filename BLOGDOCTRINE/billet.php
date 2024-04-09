@@ -7,6 +7,8 @@ include ('header.php');
     // Récupérer le billet de la base de données
     $billet = $entityManager->find('Billet', $billetId);
 
+    echo '<a href="index.php">Retour accueil</a>';
+
     // Afficher le billet
     echo '<h2>' . $billet->getTitre() . '</h2>';
     echo '<p>' . $billet->getContenu() . '</p>';
@@ -26,17 +28,26 @@ include ('header.php');
     }
     echo '</p>';
 
-    // Ajouter le formulaire de commentaire ici
-    echo '<form method="POST" action="traite_commentaire.php">';
-    echo '<input type="hidden" name="billet_id" value="' . $billet->getId() . '">';
-    echo '<textarea name="contenu" required></textarea>';
-    echo '<button type="submit">Ajouter un commentaire</button>';
-    echo '</form>';
+   // Ajouter le formulaire de commentaire ici
+    if (isset($_SESSION['id'])) {
+        echo '<form method="POST" action="traite_commentaire.php">';
+        echo '<input type="hidden" name="billet_id" value="' . $billet->getId() . '">';
+        echo '<textarea name="contenu" required></textarea>';
+        echo '<button type="submit">Ajouter un commentaire</button>';
+        echo '</form>';
+    } else {
+        echo '<a href="login.php">Connectez-vous pour ajouter un commentaire</a>';
+    }
+
+    // Afficher le bouton pour afficher/masquer les commentaires
+    echo '<button onclick="toggleComments(' . $billet->getId() . ')">Afficher/Masquer les commentaires</button>';
 
     // Récupérer tous les commentaires pour ce billet
     $commentaires = $entityManager->getRepository('Commentaire')->findBy(array('billet' => $billetId));
     // var_dump($commentaires);
 
+    // Afficher les commentaires (cachés par défaut)
+    echo '<div id="comments-' . $billet->getId() . '" style="display: none;">';
     // Parcourir tous les commentaires
     foreach ($commentaires as $commentaire) {
         // Récupérer l'utilisateur qui a posté le commentaire
@@ -64,6 +75,18 @@ include ('header.php');
         }
 
         echo "<hr>";
-}
-
+    }
+    echo '</div>';
 ?>
+
+<!-- Fonction por cacher/afficher la div des commentaires -->
+<script>
+function toggleComments(billetId) {
+    var commentsDiv = document.getElementById('comments-' + billetId);
+    if (commentsDiv.style.display === 'none') {
+        commentsDiv.style.display = 'block';
+    } else {
+        commentsDiv.style.display = 'none';
+    }
+}
+</script>
