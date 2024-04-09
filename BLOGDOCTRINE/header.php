@@ -13,13 +13,14 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Doca Blog</title>
+    <link rel="stylesheet" href="./src/index.css">
     <link rel="stylesheet" href="./src/header.css">
 </head>
 
 <body>
     <nav>
+        <a class="link-accueil" href="index.php">Accueil</a>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
             <li><a href="archives.php">Archives</a></li>
             <?php
             if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
