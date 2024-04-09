@@ -26,10 +26,22 @@ foreach ($billets as $billet) {
     echo '</p>';
 
     echo '<a href="billet.php?id=' . $billet->getId() . '">Lire la suite</a>';
-    }
 
-    // Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
+    // Afficher les liens "Modifier" et "Supprimer" seulement si l'utilisateur est un administrateur
     if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-        echo '<a href="ajout_billet.php">Ajouter un billet</a>';
+        echo ' | ';
+        echo '<a href="archives.php?action=modifier_billet&id=' . $billet->getId() . '">Modifier</a>';
+        echo ' | ';
+        echo '<form method="POST" action="traite_admin.php" style="display: inline;" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer ce billet ?\');">';
+        echo '<input type="hidden" name="action" value="supprimer_billet">';
+        echo '<input type="hidden" name="id" value="' . $billet->getId() . '">';
+        echo '<input type="submit" value="Supprimer">';
+        echo '</form>';
     }
+}
+
+// Afficher le lien "Ajouter un billet" seulement si l'utilisateur est un administrateur
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+    echo '<a href="ajout_billet.php">Ajouter un billet</a>';
+}
 ?>

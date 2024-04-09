@@ -7,7 +7,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
 
     $billet = $entityManager->find('Billet', $id);
 
-    if ($action == 'modifier') {
+    if ($action == 'modifier_billet') {
         // Récupérer les nouvelles valeurs du titre et du contenu du billet à partir des données POST
         $titre = $_POST['titre'];
         $contenu = $_POST['contenu'];
@@ -20,7 +20,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
         // Redirection vers la page archives
         header('Location: archives.php');
         exit;
-    } elseif ($action == 'supprimer') {
+    } elseif ($action == 'supprimer_billet') {
         // Récupérez tous les commentaires associés au billet
         $commentaires = $entityManager->getRepository('Commentaire')->findBy(array('billet' => $billet));
 
@@ -35,6 +35,29 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
 
         // Redirection vers la page archives
         header('Location: archives.php');
+        exit;
+
+    } elseif ($action == 'supprimer_utilisateur') {
+        // Récupérer l'utilisateur de la base de données
+        $utilisateur = $entityManager->find('Utilisateur', $id);
+
+        // Supprimer l'utilisateur de la base de données
+        $entityManager->remove($utilisateur);
+        $entityManager->flush();
+
+        // Redirection vers la page admin
+        header('Location: admin.php');
+        exit;
+    } elseif ($action == 'supprimer_commentaire') {
+        // Récupérer le commentaire de la base de données
+        $commentaire = $entityManager->find('Commentaire', $id);
+
+        // Supprimer le commentaire de la base de données
+        $entityManager->remove($commentaire);
+        $entityManager->flush();
+
+        // Redirection vers la page admin
+        header('Location: admin.php');
         exit;
     }
 } else {

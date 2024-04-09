@@ -9,7 +9,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin' && isset($_GET['id'
         echo '<a href="archives.php">Retour aux archives</a>';
         echo '<h1>Modifier le billet</h1>';
         echo '<form method="POST" action="traite_admin.php">';
-        echo '<input type="hidden" name="action" value="modifier">';
+        echo '<input type="hidden" name="action" value="modifier_billet">';
         echo '<input type="hidden" name="id" value="' . $billet->getId() . '">';
         echo '<label for="titre">Titre :</label>';
         echo '<input type="text" id="titre" name="titre" value="' . $billet->getTitre() . '">';
@@ -55,7 +55,7 @@ foreach ($billets as $billet) {
     // Afficher le lien "Modifier" seulement si l'utilisateur est un administrateur
     if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
         echo '<form method="POST" action="traite_admin.php" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer ce billet et tous ses commentaires ?\');">';
-        echo '<input type="hidden" name="action" value="supprimer">';
+        echo '<input type="hidden" name="action" value="supprimer_billet">';
         echo '<input type="hidden" name="id" value="' . $billet->getId() . '">';
         echo '<input type="submit" value="Supprimer">';
         echo '</form>';
