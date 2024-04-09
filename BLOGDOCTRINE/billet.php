@@ -77,6 +77,8 @@ include ('header.php');
         echo "<hr>";
     }
     echo '</div>';
+
+include ('footer.php');
 ?>
 
 <!-- Fonction por cacher/afficher la div des commentaires -->

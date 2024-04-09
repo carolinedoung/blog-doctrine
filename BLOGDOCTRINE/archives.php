@@ -70,4 +70,6 @@ foreach ($billets as $billet) {
     }
 
 }
+
+include ('footer.php');
 ?>

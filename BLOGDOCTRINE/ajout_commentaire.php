@@ -18,3 +18,7 @@ if (!$billet) {
     <textarea name="contenu" required></textarea>
     <button type="submit">Ajouter un commentaire</button>
 </form>
+
+<?php
+include ('footer.php');
+?>

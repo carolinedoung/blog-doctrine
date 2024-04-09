@@ -44,4 +44,6 @@ foreach ($billets as $billet) {
 if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     echo '<a href="ajout_billet.php">Ajouter un billet</a>';
 }
+
+include ('footer.php');
 ?>

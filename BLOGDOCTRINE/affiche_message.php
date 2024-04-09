@@ -13,3 +13,6 @@ foreach ($messages as $message) {
     echo "Message : " . $message->getTexte() . "<br>";
     echo "Heure : " . $message->getDatetime()->format('Y-m-d H:i:s') . "<br><br>";
 }
+
+include 'footer.php';
+?>

@@ -45,4 +45,5 @@ if (!isset($_SESSION['id'])) {
 
 // Rediriger l'utilisateur vers la page du billet
 header('Location: billet.php?id=' . $billetId);
+
 ?>

@@ -17,3 +17,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
     <input type="submit" value="Ajouter un billet">
 </form>
 
+<?php
+include ('footer.php');
+?>

@@ -12,8 +12,8 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <title>Le meilleur blog du monde </title>
-    <link rel="stylesheet" href="style.css">
+    <title>Doca Blog</title>
+    <link rel="stylesheet" href="./src/header.css">
 </head>
 
 <body>
